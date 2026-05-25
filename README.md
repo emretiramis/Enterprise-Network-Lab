@@ -30,6 +30,31 @@ and more...
 - [Conclusion](#conclusion)
 
 
+---
+
+# Project Overview
+
+This project is a comprehensive CCNA mega lab built using Cisco Packet Tracer to simulate a real enterprise network environment.
+
+The lab focuses on core networking technologies including routing, switching and network security.
+
+The purpose of this project is to understand how a computer network works in enterprise organizations.
+
+---
+
+# Objectives
+
+The main goals of this project are:
+
+- Design a scalable enterprise network
+- Implement VLAN segmentation
+- Configure inter-VLAN routing
+- Deploy dynamic routing protocol(OSPF)
+- Configure DHCP,DNS and NAT services
+- Apply ACL-based security
+- Implement SSH remote management
+
+---
 
 
 
