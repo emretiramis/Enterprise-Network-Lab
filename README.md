@@ -67,7 +67,9 @@ The main goals of this project are:
 
 ---
 
+# Network Topology
 
+<img width="1853" height="1059" alt="image" src="https://github.com/user-attachments/assets/7dfc03ca-d263-4591-b02e-0206c3dd1ce7" />
 
 
 
