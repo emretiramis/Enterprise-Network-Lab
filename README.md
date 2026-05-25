@@ -86,7 +86,48 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 #### PART 1 - Initial Setup
 
 1. Configure the appropriate hostname on each router/switch.
+   
+   We use hostname command for all switches and router. For example, "hostname R1". I do it for all devices
+   <img width="781" height="193" alt="image" src="https://github.com/user-attachments/assets/9e91d961-4339-427b-890d-357a9d53c147" />
+
+
 2. Configure the enable secret jeremysitlab on each router/switch. Use type 9 hashing if available; otherwise, use type 5.
+   
+   To configure Cisco devices, you need to switch from User EXEC mode to Privileged EXEC (enable) mode. If you don't protect this switch with a password, anyone connecting to the device via console or SSH can change all the settings. In the past, the enable password command was used for this process, but this command displays the password in plain text in the configuration file (show running-config). The enable secret command, on the other hand, saves the password by hashing it directly.
+   Type 5 (MD5 Algorithm): This was used as the standard for many years. However, today, the MD5 algorithm can be relatively easily cracked with modern computers and password cracking tables called "Rainbow Tables".
+   Type 9 (scrypt Algorithm): This is a much stronger hashing method offered by Cisco in modern iOS versions. It shows very high resistance to brute-force attacks.
+   
+   Since R1 and all access switches do not support the "algorithm-type" command, they will use algorithm type 5, while core and distribution switches will use algorithm type 9 as they do support that command.
+   for R1 and all access switches:
+   <img width="786" height="252" alt="image" src="https://github.com/user-attachments/assets/fd0200cc-b655-428e-9dd2-34baf63f9c16" />
+
+   for all core and distribution switches:
+   <img width="962" height="252" alt="image" src="https://github.com/user-attachments/assets/8c544575-f69f-4301-96aa-f7dfff8b28aa" />
+
+
 3. Configure the user account cisco with secret ccna on each router/switch. Use type 9 hashing if available; otherwise, use type 5.
+   
+   Previously, a single shared password (password...) was assigned under line vty 0 4 or line con 0 to connect to devices remotely or via console. This is a significant security risk because you can't know who logged in to the device. You'll learn how to create a Local User Database using the command "username cisco secret ccna". This allows you to create separate accounts for different users on the company network in the future, and if a problem occurs, you can see exactly who logged in from the device logs (this is called Accountability in the IT world).
+   for R1 and all access switches:
+   <img width="823" height="304" alt="image" src="https://github.com/user-attachments/assets/0a01d694-87e2-47c2-b535-6dc03563acc6" />
+
+   for all core and distribution switches:
+   <img width="1044" height="309" alt="image" src="https://github.com/user-attachments/assets/10426edc-eb0a-4ada-b6c4-720e1200a618" />
+
+
+
+
+
 4. Configure the console line to require login with a local user account. Set a 30-minute inactivity timeout. Enable synchronous logging.
+   The Cisco user account you created in the previous task is useless on its own; the device needs to know where to request that account. Someone who simply plugs in the blue console cable shouldn't be taken directly to the configuration screen. The console line (line con 0) is the gateway used by those physically accessing the device. Under console configuration, using the "login local" command tells the device: "When someone wants to log in from the console, check the local database I created and request the username/password there before letting them in." This prevents unauthorized actions by someone entering the data center.
+
+Imagine you're in a server room connected to the device via console cable, but you leave your laptop open and go out because of an urgent phone call. If the screen remains open, anyone entering the room could use your high-privilege session to crash the network. The "exec-timeout 30 0" command (30 minutes, 0 seconds) automatically logs you out for your security if the keyboard remains untouched for 30 minutes.
+
+While you're typing a long and complex command on the Cisco CLI (command line), an event might occur in the background (for example, a port might close) and a system log (syslog) message might suddenly appear on the screen. This message interrupts your half-written command, creating confusion on the screen. The "logging synchronous" command prints your currently typed command again on a new line without any interruption, even when system messages appear on the screen. It prevents interruptions and errors while typing commands.
+
+We will use the same configuration on all devices:
+<img width="803" height="510" alt="image" src="https://github.com/user-attachments/assets/873e14b0-189e-4d30-8e5e-fc627d5db354" />
+
+
+
 
