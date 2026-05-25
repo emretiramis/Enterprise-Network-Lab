@@ -26,7 +26,7 @@ and more...
 - [Connection and IPv4 Addresses](#Connection-and-IPv4-Addresses)
 - [Configuration Sections](#configuration-sections)
   - [PART 1 - Initial Setup](#PART-1---Initial-Setup)
-  - [PART 2 - VLANs,Layer-2 Etherchannel](#PART-2---VLANs,Layer-2-Etherchannel)
+  - [PART 2 - VLANs,Layer 2 Etherchannel](#PART-2---VLANs,Layer-2-Etherchannel)
   - [Spanning Tree Protocol](#spanning-tree-protocol)
   - [EtherChannel Configuration](#etherchannel-configuration)
   - [Static Routing](#static-routing)
@@ -130,6 +130,6 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
    <img width="803" height="510" alt="image" src="https://github.com/user-attachments/assets/873e14b0-189e-4d30-8e5e-fc627d5db354" />
 
 
-#### PART 2 - VLANs,Layer-2 Etherchannel
+#### PART 2 - VLANs,Layer 2 Etherchannel
 
 
