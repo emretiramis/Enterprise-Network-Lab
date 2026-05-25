@@ -26,7 +26,7 @@ and more...
 - [Network Topology](#network-topology)
 - [Connection and IPv4 Addresses](#Connection-and-IPv4-Addresses)
 - [Configuration Sections](#configuration-sections)
-- - [VLAN Configuration](#vlan-configuration)
+  - [VLAN Configuration](#vlan-configuration)
   - [Inter-VLAN Routing](#inter-vlan-routing)
   - [Spanning Tree Protocol](#spanning-tree-protocol)
   - [EtherChannel Configuration](#etherchannel-configuration)
