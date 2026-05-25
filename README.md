@@ -73,5 +73,20 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 <img width="1853" height="1059" alt="image" src="https://github.com/user-attachments/assets/7dfc03ca-d263-4591-b02e-0206c3dd1ce7" />
 
+---
 
+# Connection and IPv4 Addresses
+
+<img width="1597" height="933" alt="image" src="https://github.com/user-attachments/assets/4b3bdc34-6dd8-4851-8e16-1d27cdedb937" />
+
+---
+
+# Configuration Sections
+
+### PART 1 - Initial Setup
+
+1. Configure the appropriate hostname on each router/switch.
+2. Configure the enable secret jeremysitlab on each router/switch. Use type 9 hashing if available; otherwise, use type 5.
+3. Configure the user account cisco with secret ccna on each router/switch. Use type 9 hashing if available; otherwise, use type 5.
+4. Configure the console line to require login with a local user account. Set a 30-minute inactivity timeout. Enable synchronous logging.
 
