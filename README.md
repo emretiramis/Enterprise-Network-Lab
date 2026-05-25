@@ -69,6 +69,8 @@ The main goals of this project are:
 
 # Network Topology
 
+The network topology for this lab is a three-tier LAN consisting of two offices, Office A on the left and Office B on the right. The two offices are connected via a core layer, and R1 provides internet access with two redundant connections.
+
 <img width="1853" height="1059" alt="image" src="https://github.com/user-attachments/assets/7dfc03ca-d263-4591-b02e-0206c3dd1ce7" />
 
 
