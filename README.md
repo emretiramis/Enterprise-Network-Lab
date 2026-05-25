@@ -18,7 +18,7 @@ and more...
 
 ---
 
-# Table of Contents
+## Table of Contents
 
 - [Project Overview](#project-overview)
 - [Objectives](#objectives)
@@ -43,7 +43,7 @@ and more...
 
 ---
 
-# Project Overview
+## Project Overview
 
 This project is a comprehensive CCNA mega lab built using Cisco Packet Tracer to simulate a real enterprise network environment.
 
@@ -53,7 +53,7 @@ The purpose of this project is to understand how a computer network works in ent
 
 ---
 
-# Objectives
+## Objectives
 
 The main goals of this project are:
 
@@ -67,7 +67,7 @@ The main goals of this project are:
 
 ---
 
-# Network Topology
+## Network Topology
 
 The network topology for this lab is a three-tier LAN consisting of two offices, Office A on the left and Office B on the right. The two offices are connected via a core layer, and R1 provides internet access with two redundant connections.
 
@@ -75,15 +75,15 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 ---
 
-# Connection and IPv4 Addresses
+## Connection and IPv4 Addresses
 
 <img width="1597" height="933" alt="image" src="https://github.com/user-attachments/assets/4b3bdc34-6dd8-4851-8e16-1d27cdedb937" />
 
 ---
 
-# Configuration Sections
+## Configuration Sections
 
-### PART 1 - Initial Setup
+#### PART 1 - Initial Setup
 
 1. Configure the appropriate hostname on each router/switch.
 2. Configure the enable secret jeremysitlab on each router/switch. Use type 9 hashing if available; otherwise, use type 5.
