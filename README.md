@@ -119,6 +119,7 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 
 4. Configure the console line to require login with a local user account. Set a 30-minute inactivity timeout. Enable synchronous logging.
+   
    The Cisco user account you created in the previous task is useless on its own; the device needs to know where to request that account. Someone who simply plugs in the blue console cable shouldn't be taken directly to the configuration screen. The console line (line con 0) is the gateway used by those physically accessing the device. Under console configuration, using the "login local" command tells the device: "When someone wants to log in from the console, check the local database I created and request the username/password there before letting them in." This prevents unauthorized actions by someone entering the data center.
 
    Imagine you're in a server room connected to the device via console cable, but you leave your laptop open and go out because of an urgent phone call. If the screen remains open, anyone entering the room could use your high-privilege session to crash the network. The "exec-timeout 30 0" command (30 minutes, 0 seconds) automatically logs you out for your security if the keyboard remains untouched for 30 minutes.
