@@ -16,8 +16,7 @@ security features,
 wireless,
 and more...
 
-
-
+---
 
 # Table of Contents
 
@@ -41,7 +40,6 @@ and more...
   - [IPv6 Configuration](#ipv6-configuration)
 - [Verification and Testing](#verification-and-testing)
 - [Conclusion](#conclusion)
-
 
 ---
 
