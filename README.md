@@ -174,11 +174,11 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
    a. Explicitly disable DTP on all ports.
    
-DTP (Dynamic Trunking Protocol) is a protocol that allows Cisco switches to communicate with each other and automatically establish trunks. While it sounds practical, it's a major security vulnerability in the real world. A malicious actor could connect a computer to the network, impersonate a switch, and send a DTP message. If the port is in automatic mode, it establishes a trunk connection, and the attacker gains access to all VLANs on the network. This is called a VLAN Hopping attack.
+   DTP (Dynamic Trunking Protocol) is a protocol that allows Cisco switches to communicate with each other and automatically establish trunks. While it sounds practical, it's a major security vulnerability in the real world. A malicious actor could connect a computer to the network, impersonate a switch, and send a DTP message. If the port is in automatic mode, it establishes a trunk connection, and the attacker gains access to all VLANs on the network. This is called a VLAN Hopping attack.
 
    b. Set each trunk’s native VLAN to VLAN 1000 (unused).
    
-Switches add "VLAN Tags" to packets to determine which VLAN the data passing through trunk connections belongs to. However, if there is untagged traffic passing through the trunk, it is automatically routed to VLAN 1 (Native VLAN). Hackers are aware of this and use VLAN 1 to carry out attacks called "Native VLAN Spoofing". We should move the Native VLAN from its default location (VLAN 1) to a "dead" or "black hole" VLAN (VLAN 1000) that has no function on the network. This way, untagged, rogue traffic will be trapped within VLAN 1000 and unable to go anywhere.
+   Switches add "VLAN Tags" to packets to determine which VLAN the data passing through trunk connections belongs to. However, if there is untagged traffic passing through the trunk, it is automatically routed to VLAN 1 (Native VLAN). Hackers are aware of this and use VLAN 1 to carry out attacks called "Native VLAN Spoofing". We should move the Native VLAN from its default location (VLAN 1) to a "dead" or "black hole" VLAN (VLAN 1000) that has no function on the network. This way, untagged, rogue traffic will be trapped within VLAN 1000 and unable to go anywhere.
 
    c. In Office A, allow VLANs 10, 20, 40, and 99 on all trunks.
 
