@@ -226,8 +226,7 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
    switchport trunk allowed vlan 10,20,30,99
  ```  
 
-   allowed vlans for DSW-A1:
-   <img width="1102" height="397" alt="image" src="https://github.com/user-attachments/assets/ed1a3fd8-dbaa-4ba1-ade5-4cc7c7dbbd86" />
+
 
 
    Looking which interfaces that we use for access layer switches in DSW-A1:
@@ -245,12 +244,15 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 
 
-Disable DTP on all ports for DSW-A1: <br>
+  Disable DTP on all ports for DSW-A1: <br>
 <img width="597" height="100" alt="image" src="https://github.com/user-attachments/assets/324d63a9-7b0e-4981-9e28-46c679e011ce" />
 
 
-Doing native vlan 1000 for DSW-A1: <br>
+  Doing native vlan 1000 for DSW-A1: <br>
 <img width="659" height="135" alt="image" src="https://github.com/user-attachments/assets/9fc05ebd-3fb7-4f54-8428-599e459e0ef2" />
+
+   allowed vlans for DSW-A1:
+   <img width="1102" height="397" alt="image" src="https://github.com/user-attachments/assets/ed1a3fd8-dbaa-4ba1-ade5-4cc7c7dbbd86" />
 
 
 
