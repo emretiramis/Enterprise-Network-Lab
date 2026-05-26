@@ -185,21 +185,24 @@ Switches add "VLAN Tags" to packets to determine which VLAN the data passing thr
    sw nonegotiate
    sw trunk native vlan 1000
    switchport trunk allowed vlan 10,20,40,99
-
+```
+```
    ASW-A1, ASW-A2, ASW-A3:
    int range g1/0/1-2
    sw mode trunk
    sw nonegotiate
    sw trunk native vlan 1000
    switchport trunk allowed vlan 10,20,40,99
-
+```
+```
    DSW-B1, DSW-B2:
    int range g1/0/1-3
    sw mode trunk
    sw nonegotiate
    sw trunk native vlan 1000
    switchport trunk allowed vlan 10,20,30,99
-
+```
+```
    ASW-B1, ASW-B2, ASW-B3:
    int range g1/0/1-2
    sw mode trunk
