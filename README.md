@@ -190,6 +190,11 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
    sw nonegotiate
    sw trunk native vlan 1000
    switchport trunk allowed vlan 10,20,40,99
+   int po1
+   sw mode trunk
+   sw nonegotiate
+   sw trunk native vlan 1000
+   sw trunk allowed vlan 10,20,40,99
 ```
 ```
    ASW-A1, ASW-A2, ASW-A3:
@@ -206,6 +211,11 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
    sw nonegotiate
    sw trunk native vlan 1000
    switchport trunk allowed vlan 10,20,30,99
+   int po1
+   sw mode trunk
+   sw nonegotiate
+   sw trunk native vlan 1000
+   sw trunk allowed vlan 10,20,30,99
 ```
 ```
    ASW-B1, ASW-B2, ASW-B3:
