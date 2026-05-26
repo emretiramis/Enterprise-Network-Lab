@@ -178,7 +178,7 @@ Switches add "VLAN Tags" to packets to determine which VLAN the data passing thr
    c. In Office A, allow VLANs 10, 20, 40, and 99 on all trunks.
 
    d. In Office B, allow VLANs 10, 20, 30, and 99 on all trunks.
-
+```
    DSW-A1, DSW-A2:
    int range g1/0/1-3
    sw mode trunk
@@ -206,7 +206,7 @@ Switches add "VLAN Tags" to packets to determine which VLAN the data passing thr
    sw nonegotiate
    sw trunk native vlan 1000
    switchport trunk allowed vlan 10,20,30,99
-   
+ ```  
 
    allowed vlans for DSW-A1:
    <img width="1102" height="397" alt="image" src="https://github.com/user-attachments/assets/ed1a3fd8-dbaa-4ba1-ade5-4cc7c7dbbd86" />
