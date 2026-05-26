@@ -245,11 +245,11 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 
 
-Disable DTP on all ports for DSW-A1:
+Disable DTP on all ports for DSW-A1: <br>
 <img width="597" height="100" alt="image" src="https://github.com/user-attachments/assets/324d63a9-7b0e-4981-9e28-46c679e011ce" />
 
 
-Doing native vlan 1000 for DSW-A1:
+Doing native vlan 1000 for DSW-A1: <br>
 <img width="659" height="135" alt="image" src="https://github.com/user-attachments/assets/9fc05ebd-3fb7-4f54-8428-599e459e0ef2" />
 
 
