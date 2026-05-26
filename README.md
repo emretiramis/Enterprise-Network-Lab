@@ -179,26 +179,38 @@ Switches add "VLAN Tags" to packets to determine which VLAN the data passing thr
 
    d. In Office B, allow VLANs 10, 20, 30, and 99 on all trunks.
 
-DSW-A1, DSW-A2, ASW-A1, ASW-A2, ASW-A3:
-switchport trunk allowed vlan 10,20,40,99
-
-allowed vlans for DSW-A1:
-<img width="1102" height="397" alt="image" src="https://github.com/user-attachments/assets/ed1a3fd8-dbaa-4ba1-ade5-4cc7c7dbbd86" />
-
-
-
-
-DSW-A1 and DSW-A2:
+   DSW-A1, DSW-A2:
    int range g1/0/1-3
    sw mode trunk
+   sw nonegotiate
+   sw trunk native vlan 1000
+   switchport trunk allowed vlan 10,20,40,99
 
    ASW-A1, ASW-A2, ASW-A3:
    int range g1/0/1-2
    sw mode trunk
+   sw nonegotiate
+   sw trunk native vlan 1000
+   switchport trunk allowed vlan 10,20,40,99
 
-   DSW-B1 and DSW-B2:
+   DSW-B1, DSW-B2:
    int range g1/0/1-3
    sw mode trunk
+   sw nonegotiate
+   sw trunk native vlan 1000
+   switchport trunk allowed vlan 10,20,30,99
+
+   ASW-B1, ASW-B2, ASW-B3:
+   int range g1/0/1-2
+   sw mode trunk
+   sw nonegotiate
+   sw trunk native vlan 1000
+   switchport trunk allowed vlan 10,20,30,99
+   
+
+   allowed vlans for DSW-A1:
+   <img width="1102" height="397" alt="image" src="https://github.com/user-attachments/assets/ed1a3fd8-dbaa-4ba1-ade5-4cc7c7dbbd86" />
+
 
    Looking which interfaces that we use for access layer switches in DSW-A1:
    <img width="948" height="295" alt="image" src="https://github.com/user-attachments/assets/8e539055-b344-456a-9b92-82ef509841dc" />
@@ -213,21 +225,16 @@ DSW-A1 and DSW-A2:
    <img width="1587" height="1182" alt="image" src="https://github.com/user-attachments/assets/088829e2-adcb-43aa-bf68-e62edc1bdecb" />
    <img width="1630" height="1155" alt="image" src="https://github.com/user-attachments/assets/9da69500-44e1-4d7a-8685-900e775968d8" />
 
-DSW-A1, DSW-A2, ASW-A1, ASW-A2, ASW-A3, DSW-B1, DSW-B2, ASW-B1, ASW-B2, ASW-B3:
-   sw nonegotiate
+
 
 Disable DTP on all ports for DSW-A1:
 <img width="597" height="100" alt="image" src="https://github.com/user-attachments/assets/324d63a9-7b0e-4981-9e28-46c679e011ce" />
 
-DSW-A1, DSW-A2, ASW-A1, ASW-A2, ASW-A3, DSW-B1, DSW-B2, ASW-B1, ASW-B2, ASW-B3:
-sw trunk native vlan 1000
 
 Doing native vlan 1000 for DSW-A1:
 <img width="659" height="135" alt="image" src="https://github.com/user-attachments/assets/9fc05ebd-3fb7-4f54-8428-599e459e0ef2" />
 
 
-DSW-B1, DSW-B2, ASW-B1, ASW-B2, ASW-B3:
-switchport trunk allowed vlan 10,20,30,99
 
 6. Configure one of each office’s Distribution switches as a VTPv2 server. Use domain name JeremysITLab.
 a. Verify that other switches join the domain.
