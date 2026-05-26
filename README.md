@@ -257,27 +257,31 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
   do this processes for each devices.
   
 
-6. Configure one of each office’s Distribution switches as a VTPv2 server. Use domain name JeremysITLab.
+4. Configure one of each office’s Distribution switches as a VTPv2 server. Use domain name JeremysITLab.
 a. Verify that other switches join the domain.
 b. Configure all Access switches as VTP clients.
-7. In Office A, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
+
+   VTP (VLAN Trunking Protocol) is the switch mode in Cisco networks that manages all VLAN database changes, such as creating, deleting, and renaming VLANs. It automatically distributes VLAN information to all client switches in the same VTP domain.
+
+
+8. In Office A, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
 a. VLAN 10: PCs
 b. VLAN 20: Phones
 c. VLAN 40: Wi-Fi
 d. VLAN 99: Management
-8. In Office B, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
+9. In Office B, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
 a. VLAN 10: PCs
 b. VLAN 20: Phones
 c. VLAN 30: Servers
 d. VLAN 99: Management
-9. Configure each Access switch’s access port. 
+10. Configure each Access switch’s access port. 
 a. LWAPs will not use FlexConnect
 b. PCs in VLAN 10, Phones in VLAN 20
 c. SRV1 in VLAN 30
 d. Manually configure access mode and explicitly disable DTP
-10. Configure ASW-A1’s connection to WLC1:
+11. Configure ASW-A1’s connection to WLC1:
 a. It must support the Wi-Fi and Management VLANs.
 b. The Management VLAN should be untagged.
 c. Disable DTP.
-11. Administratively disable all unused ports on Access and Distribution switches.
+12. Administratively disable all unused ports on Access and Distribution switches.
 
