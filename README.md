@@ -133,6 +133,7 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 #### PART 2 - VLANs Layer 2 Etherchannel
 
 1. In Office A, configure a Layer-2 EtherChannel named PortChannel1 between DSW-A1 and DSW-A2 using a Cisco-proprietary protocol. Both switches should actively try to form an EtherChannel.
+   
    There are two cables between the DSW-A1 and DSW-A2 devices in Office A. Why do we run two cables between two switches? So that if one breaks, the other can continue to work. However, in the networking world, there's a traffic policeman called Spanning Tree Protocol (STP). To prevent infinite loops in the network, STP shuts down one of these two cables for safety reasons. So you want both cables to work simultaneously, doubling your bandwidth, but STP won't allow that. EtherChannel technology logically taps these two physical cables together, making them appear as a single thick cable (PortChannel). STP no longer sees two separate cables, but a single thick cable, and doesn't shut either down. The capacity of both cables (e.g., 1 Gigabit + 1 Gigabit) combines to create a giant 2 Gigabit highway. If one breaks, the system continues to operate uninterrupted over the remaining cable (at 1 Gigabit speed).
 
    Switches need to communicate and understand each other to connect these cables. There are two different protocols used to achieve this: LACP (Link Aggregation Control Protocol): This is the industry standard. You would use it if connecting a Cisco switch to an HP or Juniper switch. PAgP (Port Aggregation Protocol): This is a Cisco-invented protocol known only by Cisco devices. In this task, we will use the PAgP protocol to connect the devices. The task wants that both switches should actively try to form an etherchannel, so we should do mode as "desirable".
@@ -153,6 +154,7 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
    
 2. In Office B, configure a Layer-2 EtherChannel named PortChannel1 between DSW-B1 and DSW-B2 using an open standard protocol. Both switches should actively try to form an EtherChannel.
+   
    Here in the task, we should use open standard protocol, so it is LACP. LACP has 2 mode, active and passive. Here we should use active because both switches should actively try to form an etherchannel
 
    For DSW-B1:
@@ -167,12 +169,15 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 
 3. Configure all links between Access and Distribution switches, including the EtherChannels, as trunk links.
+   
    Switches use "Access" mode when connecting to computers, and only a single VLAN (e.g., Accounting only) passes through these ports. However, when connecting two switches, all internal VLANs (Accounting, HR, Administration, etc.) need to be able to pass through this cable. The main task is to trunk the connections between Access and Distribution switches, turning these paths into multi-lane highways.
 
    a. Explicitly disable DTP on all ports.
+   
 DTP (Dynamic Trunking Protocol) is a protocol that allows Cisco switches to communicate with each other and automatically establish trunks. While it sounds practical, it's a major security vulnerability in the real world. A malicious actor could connect a computer to the network, impersonate a switch, and send a DTP message. If the port is in automatic mode, it establishes a trunk connection, and the attacker gains access to all VLANs on the network. This is called a VLAN Hopping attack.
 
    b. Set each trunk’s native VLAN to VLAN 1000 (unused).
+   
 Switches add "VLAN Tags" to packets to determine which VLAN the data passing through trunk connections belongs to. However, if there is untagged traffic passing through the trunk, it is automatically routed to VLAN 1 (Native VLAN). Hackers are aware of this and use VLAN 1 to carry out attacks called "Native VLAN Spoofing". We should move the Native VLAN from its default location (VLAN 1) to a "dead" or "black hole" VLAN (VLAN 1000) that has no function on the network. This way, untagged, rogue traffic will be trapped within VLAN 1000 and unable to go anywhere.
 
    c. In Office A, allow VLANs 10, 20, 40, and 99 on all trunks.
