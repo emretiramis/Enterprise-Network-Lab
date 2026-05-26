@@ -198,7 +198,7 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 ```
 ```
    ASW-A1, ASW-A2, ASW-A3:
-   int range g1/0/1-2
+   int range g0/1-2
    sw mode trunk
    sw nonegotiate
    sw trunk native vlan 1000
@@ -219,7 +219,7 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 ```
 ```
    ASW-B1, ASW-B2, ASW-B3:
-   int range g1/0/1-2
+   int range g0/1-2
    sw mode trunk
    sw nonegotiate
    sw trunk native vlan 1000
