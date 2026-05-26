@@ -254,7 +254,8 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
    allowed vlans for DSW-A1:
    <img width="1102" height="397" alt="image" src="https://github.com/user-attachments/assets/ed1a3fd8-dbaa-4ba1-ade5-4cc7c7dbbd86" />
 
-
+  do this processes for each devices.
+  
 
 6. Configure one of each office’s Distribution switches as a VTPv2 server. Use domain name JeremysITLab.
 a. Verify that other switches join the domain.
