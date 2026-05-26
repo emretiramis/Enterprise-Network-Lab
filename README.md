@@ -132,4 +132,66 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 
 #### PART 2 - VLANs Layer 2 Etherchannel
 
+1. In Office A, configure a Layer-2 EtherChannel named PortChannel1 between DSW-A1 and DSW-A2 using a Cisco-proprietary protocol. Both switches should actively try to form an EtherChannel.
+   There are two cables between the DSW-A1 and DSW-A2 devices in Office A. Why do we run two cables between two switches? So that if one breaks, the other can continue to work. However, in the networking world, there's a traffic policeman called Spanning Tree Protocol (STP). To prevent infinite loops in the network, STP shuts down one of these two cables for safety reasons. So you want both cables to work simultaneously, doubling your bandwidth, but STP won't allow that. EtherChannel technology logically taps these two physical cables together, making them appear as a single thick cable (PortChannel). STP no longer sees two separate cables, but a single thick cable, and doesn't shut either down. The capacity of both cables (e.g., 1 Gigabit + 1 Gigabit) combines to create a giant 2 Gigabit highway. If one breaks, the system continues to operate uninterrupted over the remaining cable (at 1 Gigabit speed).
+
+   Switches need to communicate and understand each other to connect these cables. There are two different protocols used to achieve this: LACP (Link Aggregation Control Protocol): This is the industry standard. You would use it if connecting a Cisco switch to an HP or Juniper switch. PAgP (Port Aggregation Protocol): This is a Cisco-invented protocol known only by Cisco devices. In this task, we will use the PAgP protocol to connect the devices. The task wants that both switches should actively try to form an etherchannel, so we should do mode as "desirable".
+
+   I ran the command "sh cdp nei" to see which ports DSW-A1 uses for DSW-A2:
+   <img width="1632" height="462" alt="image" src="https://github.com/user-attachments/assets/eaf62c72-0e61-424b-b20d-8bc34e3ce7fa" />
+
+   g1/0/4-5 interfaces
+   
+   For DSW-A1:  
+   <img width="1997" height="808" alt="image" src="https://github.com/user-attachments/assets/3743d7aa-3af4-4109-8e75-587256020df6" />
+
+   For DSW-A2:
+   <img width="2004" height="758" alt="image" src="https://github.com/user-attachments/assets/987a70b2-8cec-475a-a307-90fa700e99e6" />
+
+   verify:
+   <img width="1707" height="729" alt="image" src="https://github.com/user-attachments/assets/d33a0662-ad5c-4081-8d35-3ce04dec9916" />
+
+   
+2. In Office B, configure a Layer-2 EtherChannel named PortChannel1 between DSW-B1 and DSW-B2 using an open standard protocol. Both switches should actively try to form an EtherChannel.
+   Here in the task, we should use open standard protocol, so it is LACP. LACP has 2 mode, active and passive. Here we should use active because both switches should actively try to form an etherchannel
+
+   For DSW-B1:
+   <img width="1980" height="619" alt="image" src="https://github.com/user-attachments/assets/aefe9051-27ac-4b4e-b5c5-bcc033e5a2f6" />
+
+   For DSW-B2:
+   <img width="1974" height="737" alt="image" src="https://github.com/user-attachments/assets/07224e5c-d68a-473b-9e31-583d12351d41" />
+
+   Verify:
+   <img width="1766" height="752" alt="image" src="https://github.com/user-attachments/assets/4acb3e77-d904-490e-af47-4461b974ab14" />
+
+
+
+3. Configure all links between Access and Distribution switches, including the EtherChannels, as trunk links.
+a. Explicitly disable DTP on all ports.
+b. Set each trunk’s native VLAN to VLAN 1000 (unused).
+c. In Office A, allow VLANs 10, 20, 40, and 99 on all trunks.
+d. In Office B, allow VLANs 10, 20, 30, and 99 on all trunks.
+6. Configure one of each office’s Distribution switches as a VTPv2 server. Use domain name JeremysITLab.
+a. Verify that other switches join the domain.
+b. Configure all Access switches as VTP clients.
+7. In Office A, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
+a. VLAN 10: PCs
+b. VLAN 20: Phones
+c. VLAN 40: Wi-Fi
+d. VLAN 99: Management
+8. In Office B, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
+a. VLAN 10: PCs
+b. VLAN 20: Phones
+c. VLAN 30: Servers
+d. VLAN 99: Management
+9. Configure each Access switch’s access port. 
+a. LWAPs will not use FlexConnect
+b. PCs in VLAN 10, Phones in VLAN 20
+c. SRV1 in VLAN 30
+d. Manually configure access mode and explicitly disable DTP
+10. Configure ASW-A1’s connection to WLC1:
+a. It must support the Wi-Fi and Management VLANs.
+b. The Management VLAN should be untagged.
+c. Disable DTP.
+11. Administratively disable all unused ports on Access and Distribution switches.
 
