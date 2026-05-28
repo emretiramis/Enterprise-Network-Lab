@@ -261,7 +261,32 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 a. Verify that other switches join the domain.
 b. Configure all Access switches as VTP clients.
 
-   VTP (VLAN Trunking Protocol) is the switch mode in Cisco networks that manages all VLAN database changes, such as creating, deleting, and renaming VLANs. It automatically distributes VLAN information to all client switches in the same VTP domain.
+   This task aims to do Cisco's proprietary VTP (VLAN Trunking Protocol) concept, which enables the automation of VLAN management from a central point instead of visiting each switch on the network individually. The task involves making a Distribution switch a VTP Server to manage all VLAN changes from a single point, and setting Access switches to VTP Client mode to automatically synchronize these changes over a common domain (VTP Domain: JeremysITLab), saving time and eliminating human configuration errors. However, while this protocol offers ease of management in a lab environment, it poses a significant cybersecurity and accessibility risk in real-world networks. A VTP bomb – a higher-revision number on an older or test switch added later – could overwrite the entire live network's VLAN database in seconds. Therefore, VTPv3 or VTP Transparent modes are generally preferred over these.
+
+   in the picture, we see that there is no vtp domain name. Default version is 1 and default operating mode is server.
+   <img width="950" height="443" alt="image" src="https://github.com/user-attachments/assets/9695c3d5-c6fe-4fa9-8c00-0fd1ab90df20" />
+
+   Now we need to configure a domain and set the version to 2.
+   <img width="1090" height="195" alt="image" src="https://github.com/user-attachments/assets/7c7bfad4-a81d-4469-9bd5-17b923ed02fa" />
+
+   Performing these configurations should cause DSW-A1 to send VTP messages and for other switches to join the domain. Lets check the ASW-A3 switch.
+   <img width="980" height="502" alt="image" src="https://github.com/user-attachments/assets/f175eeab-ccc1-44b4-91a7-7c826e128dc7" />
+
+   Then I will do vtp mode client for all access layer switches.
+   <img width="567" height="139" alt="image" src="https://github.com/user-attachments/assets/bc83e3d1-8c54-4e59-8c47-7cb69d70653f" />
+   <img width="540" height="153" alt="image" src="https://github.com/user-attachments/assets/048a126c-ceb6-4d1d-a571-dfd403dee9c9" />
+   <img width="644" height="199" alt="image" src="https://github.com/user-attachments/assets/11eeae43-6419-40cd-aae5-380ed564360b" />
+
+   These all was for office A. I did same configs for office B too. VTP messages are only transmitted through trunk ports, and we haven't yet configured the connections between the distribution and core layers. Therefore, VTP messages from Office A will not reach Office B.
+   
+
+   
+
+
+
+
+
+
 
 
 8. In Office A, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
@@ -269,19 +294,81 @@ a. VLAN 10: PCs
 b. VLAN 20: Phones
 c. VLAN 40: Wi-Fi
 d. VLAN 99: Management
-9. In Office B, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
+
+    In tasks 5 and 6, we will configure the required VLANs on the DSW-A1 and DSW-B1 switches, which we previously set up as VTP servers. These VTP servers will then distribute the VLANs to all switches on the network.
+   <img width="510" height="307" alt="image" src="https://github.com/user-attachments/assets/7dcaf7c7-8bf1-4bda-ab48-4f1a5720f5c6" />
+
+   verify on DSW-A1:
+   <img width="1097" height="519" alt="image" src="https://github.com/user-attachments/assets/ca80827f-92ae-488c-9f16-13a1ac6f92e6" />
+
+   verify on ASW-A3:
+   <img width="1083" height="451" alt="image" src="https://github.com/user-attachments/assets/5d0f7e0a-8148-46c4-a628-c50eadd9b0f2" />
+
+
+
+
+
+6. In Office B, create and name the following VLANs on one of the Distribution switches. Ensure that VTP propagates the changes.
 a. VLAN 10: PCs
 b. VLAN 20: Phones
 c. VLAN 30: Servers
 d. VLAN 99: Management
-10. Configure each Access switch’s access port. 
+
+    same process with task 5:
+    DSW-B1:
+    <img width="1106" height="802" alt="image" src="https://github.com/user-attachments/assets/fe6054e4-59df-49aa-95f5-5fb75f9a415a" />
+
+    ASW-B3:
+    <img width="1056" height="482" alt="image" src="https://github.com/user-attachments/assets/b7474a95-d164-4c19-bd82-05972d625f8f" />
+
+
+7. Configure each Access switch’s access port. 
 a. LWAPs will not use FlexConnect
 b. PCs in VLAN 10, Phones in VLAN 20
 c. SRV1 in VLAN 30
 d. Manually configure access mode and explicitly disable DTP
-11. Configure ASW-A1’s connection to WLC1:
+
+   ASW-A and B1 are both connected to LWAPs. 7A states that the LWAPs will not use FlexConnect. This means all traffic will be tunneled through the Management VLAN to WLC1. Therefore, these connections to the LWAPs can be access ports. They just need to support the Management VLAN. Incidentally, this is also why office B doesn't have a Wi-Fi VLAN. Traffic from wireless clients in office B is tunneled to WLC1 in office A and only then is it assigned to VLAN 40, which is the Wi-Fi VLAN.
+
+   ASW-A1:
+   <img width="576" height="342" alt="image" src="https://github.com/user-attachments/assets/d98e73a6-b08a-4cda-8ba7-eef1e1fdef2d" />
+
+   ASW-B1:
+   <img width="587" height="258" alt="image" src="https://github.com/user-attachments/assets/0ab0cdcf-40b0-4b69-9aad-1be525c49eb5" />
+
+   ASW-A2, ASW-A3, ASW-B2:
+   ```
+   int f0/1
+   switchport mode access
+   switchport nonegotiate
+   switchport access vlan 10
+   switchport voice vlan 20
+   ```
+   <img width="731" height="412" alt="image" src="https://github.com/user-attachments/assets/87cfe8ef-7620-4879-87bb-a2a01b9d79b1" />
+   <img width="890" height="571" alt="image" src="https://github.com/user-attachments/assets/2bb4175a-0d9e-4325-a4ed-0491b48c45f8" />
+   <img width="813" height="487" alt="image" src="https://github.com/user-attachments/assets/8b897a77-0c57-45d5-b6cb-3cf512c2e0ca" />
+
+   ASW-B3:
+   <img width="781" height="377" alt="image" src="https://github.com/user-attachments/assets/0d5be577-1d1c-49ab-875d-a625270bc5f1" />
+   
+
+8. Configure ASW-A1’s connection to WLC1:
 a. It must support the Wi-Fi and Management VLANs.
 b. The Management VLAN should be untagged.
 c. Disable DTP.
-12. Administratively disable all unused ports on Access and Distribution switches.
+
+  ASW-A1:
+  <img width="1112" height="595" alt="image" src="https://github.com/user-attachments/assets/f0dd8e6e-50ca-4f99-aa9d-0cab0a778a70" />
+
+
+15. Administratively disable all unused ports on Access and Distribution switches.
+    DSW-A1, DSW-A2, DSW-B1, DSW-B2:
+    <img width="1066" height="493" alt="image" src="https://github.com/user-attachments/assets/8e1596cf-c1ac-42ce-8978-0cea6416a515" />
+
+    ASW-A1, ASW-A2, ASW-A3, ASW-B1, ASW-B2, ASW-B3:
+    int f0/2-24
+    shutdown
+    
+    
+
 
