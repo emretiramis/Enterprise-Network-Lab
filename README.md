@@ -27,7 +27,7 @@ and more...
 - [Configuration Sections](#configuration-sections)
   - [PART 1 - Initial Setup](#PART-1---Initial-Setup)
   - [PART 2 - VLANs,Layer 2 Etherchannel](#PART-2---VLANs-Layer-2-Etherchannel)
-  - [Spanning Tree Protocol](#spanning-tree-protocol)
+  - [PART 3 - IP Adresses, Layer 3 EtherChannel, HSRP](#PART-3---IP-Adresses-Layer-3-EtherChannel-HSRP)
   - [EtherChannel Configuration](#etherchannel-configuration)
   - [Static Routing](#static-routing)
   - [OSPF Configuration](#ospf-configuration)
@@ -369,6 +369,100 @@ c. Disable DTP.
     int f0/2-24
     shutdown
     
-    
+
+#### PART 3 - IP Adresses, Layer 3 EtherChannel, HSRP
+
+1. Configure the following IP addresses on R1’s interfaces and enable them:
+a. G0/0/0: DHCP client
+b. G0/1/0: DHCP client
+c. G0/0: 10.0.0.33/30
+d. G0/1: 10.0.0.37/30
+e. Loopback0: 10.0.0.76/32
+
+3. Enable IPv4 routing on all Core and Distribution switches.
+4. Create a Layer-3 EtherChannel between CSW1 and CSW2 using a Cisco-proprietary protocol. Both switches should actively try to form an EtherChannel. Configure the following IP addresses:
+a. CSW1 PortChannel1: 10.0.0.41/30
+b. CSW2 PortChannel1: 10.0.0.42/30
+5. Configure the following IP addresses on CSW1. Disable all unused interfaces.
+a. G1/0/1: 10.0.0.34/30
+b. G1/1/1: 10.0.0.45/30
+c. G1/1/2: 10.0.0.49/30
+d. G1/1/3: 10.0.0.53/30
+e. G1/1/4: 10.0.0.57/30
+f. Loopback0: 10.0.0.77/32
+6. Configure the following IP addresses on CSW2. Disable all unused interfaces.
+a. G1/0/1: 10.0.0.38/30
+b. G1/1/1: 10.0.0.61/30
+c. G1/1/2: 10.0.0.65/30
+d. G1/1/3: 10.0.0.69/30
+e. G1/1/4: 10.0.0.73/30
+f. Loopback0: 10.0.0.78/32
+7. Configure the following IP addresses on DSW-A1:
+a. G1/1/1: 10.0.0.46/30
+b. G1/1/2: 10.0.0.62/30
+c. Loopback0: 10.0.0.79/32
+8. Configure the following IP addresses on DSW-A2:
+a. G1/1/1: 10.0.0.50/30
+b. G1/1/2: 10.0.0.66/30
+c. Loopback0: 10.0.0.80/32
+9. Configure the following IP addresses on DSW-B1:
+a. G1/1/1: 10.0.0.54/30
+b. G1/1/2: 10.0.0.70/30
+c. Loopback0: 10.0.0.81/32
+10. Configure the following IP addresses on DSW-B2:
+a. G1/1/1: 10.0.0.58/30
+b. G1/1/2: 10.0.0.74/30
+c. Loopback0: 10.0.0.82/32
+11. Manually configure SRV1’s IP settings:
+a. Default Gateway: 10.5.0.1
+b. IPv4 Address: 10.5.0.4
+c. Subnet Mask: 255.255.255.0
+12. Configure the following management IP addresses on the Access switches (interface VLAN 99), and configure the appropriate subnet’s first usable address as the default gateway.
+a. ASW-A1: 10.0.0.4/28
+b. ASW-A2: 10.0.0.5/28
+c. ASW-A3: 10.0.0.6/28
+d. ASW-B1: 10.0.0.20/28
+e. ASW-B2: 10.0.0.21/28
+f. ASW-B3: 10.0.0.22/28
+13. Configure HSRPv2 group 1 for Office A’s Management subnet (VLAN 99). Make DSW-A1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A1.
+a. Subnet: 10.0.0.0/28
+b. VIP: 10.0.0.1
+c. DSW-A1: 10.0.0.2
+d. DSW-A2: 10.0.0.3
+14. Configure HSRPv2 group 2 for Office A’s PCs subnet (VLAN 10). Make DSW-A1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A1.
+a. Subnet: 10.1.0.0/24
+b. VIP: 10.1.0.1
+c. DSW-A1: 10.1.0.2
+d. DSW-A2: 10.1.0.3
+15. Configure HSRPv2 group 3 for Office A’s Phones subnet (VLAN 20). Make DSW-A2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A2.
+a. Subnet: 10.2.0.0/24
+b. VIP: 10.2.0.1
+c. DSW-A1: 10.2.0.2
+d. DSW-A2: 10.2.0.3
+16. Configure HSRPv2 group 4 for Office A’s Wi-Fi subnet (VLAN 40). Make DSW-A2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A2.
+a. Subnet: 10.6.0.0/24
+b. VIP: 10.6.0.1
+c. DSW-A1: 10.6.0.2
+d. DSW-A2: 10.6.0.3
+17. Configure HSRPv2 group 1 for Office B’s Management subnet (VLAN 99). Make DSW-B1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B1.
+a. Subnet: 10.0.0.16/28
+b. VIP: 10.0.0.17
+c. DSW-B1: 10.0.0.18
+d. DSW-B2: 10.0.0.19
+18. Configure HSRPv2 group 2 for Office B’s PCs subnet (VLAN 10). Make DSW-B1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B1.
+a. Subnet: 10.3.0.0/24
+b. VIP: 10.3.0.1
+c. DSW-B1: 10.3.0.2
+d. DSW-B2: 10.3.0.3
+19. Configure HSRPv2 group 3 for Office B’s Phones subnet (VLAN 20). Make DSW-B2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B2.
+a. Subnet: 10.4.0.0/24
+b. VIP: 10.4.0.1
+c. DSW-B1: 10.4.0.2
+d. DSW-B2: 10.4.0.3
+20. Configure HSRPv2 group 4 for Office B’s Servers subnet (VLAN 30). Make DSW-B2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B2.
+a. Subnet: 10.5.0.0/24
+b. VIP: 10.5.0.1
+c. DSW-B1: 10.5.0.2
+d. DSW-B2: 10.5.0.3
 
 
