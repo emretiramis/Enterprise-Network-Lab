@@ -779,7 +779,7 @@ b. Configure the HSRP Standby Router for each VLAN with an STP priority one incr
    ```
   
 
-#### Part 5 – Static and Dynamic Routing
+#### Part 5 - Static and Dynamic Routing
 
 
 
