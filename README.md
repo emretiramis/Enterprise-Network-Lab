@@ -1,5 +1,5 @@
 # Enterprise Infrastructure
-This project is a large-scale lab designed to simulate a real enterprise network environment.
+This project is a large-scale lab designed to simulate a real enterprise infrastructure environment.
 
 The lab includes:
 IPv4 and IPv6, 
