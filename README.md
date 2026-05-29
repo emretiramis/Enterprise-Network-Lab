@@ -28,7 +28,7 @@ and more...
   - [PART 1 - Initial Setup](#PART-1---Initial-Setup)
   - [PART 2 - VLANs,Layer 2 Etherchannel](#PART-2---VLANs-Layer-2-Etherchannel)
   - [PART 3 - IP Adresses, Layer 3 EtherChannel, HSRP](#PART-3---IP-Adresses-Layer-3-EtherChannel-HSRP)
-  - [Part 4 – Rapid Spanning Tree Protocol](#Part-4-Rapid-Spanning-Tree-Protocol)
+  - [Part 4 - Rapid Spanning Tree Protocol](#Part-4---Rapid-Spanning-Tree-Protocol)
   - [Static Routing](#static-routing)
   - [OSPF Configuration](#ospf-configuration)
   - [DHCP Configuration](#dhcp-configuration)
@@ -736,7 +736,7 @@ d. DSW-B2: 10.5.0.3
 
     
 
-#### Part 4 Rapid Spanning Tree Protocol
+#### Part 4 - Rapid Spanning Tree Protocol
 
 
 
