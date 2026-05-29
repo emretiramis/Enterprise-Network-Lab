@@ -29,7 +29,7 @@ and more...
   - [PART 2 - VLANs,Layer 2 Etherchannel](#PART-2---VLANs-Layer-2-Etherchannel)
   - [PART 3 - IP Adresses, Layer 3 EtherChannel, HSRP](#PART-3---IP-Adresses-Layer-3-EtherChannel-HSRP)
   - [Part 4 - Rapid Spanning Tree Protocol](#Part-4---Rapid-Spanning-Tree-Protocol)
-  - [Static Routing](#static-routing)
+  - [Part 5 – Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
   - [OSPF Configuration](#ospf-configuration)
   - [DHCP Configuration](#dhcp-configuration)
   - [DNS Configuration](#dns-configuration)
@@ -779,6 +779,7 @@ b. Configure the HSRP Standby Router for each VLAN with an STP priority one incr
    ```
   
 
+#### Part 5 – Static and Dynamic Routing
 
 
 
