@@ -28,8 +28,8 @@ and more...
   - [PART 1 - Initial Setup](#PART-1---Initial-Setup)
   - [PART 2 - VLANs,Layer 2 Etherchannel](#PART-2---VLANs-Layer-2-Etherchannel)
   - [PART 3 - IP Adresses, Layer 3 EtherChannel, HSRP](#PART-3---IP-Adresses-Layer-3-EtherChannel-HSRP)
-  - [Part 4 - Rapid Spanning Tree Protocol](#Part-4---Rapid-Spanning-Tree-Protocol)
-  - [Part 5 - Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
+  - [PART 4 - Rapid Spanning Tree Protocol](#Part-4---Rapid-Spanning-Tree-Protocol)
+  - [PART 5 - Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
   - [OSPF Configuration](#ospf-configuration)
   - [DHCP Configuration](#dhcp-configuration)
   - [DNS Configuration](#dns-configuration)
@@ -736,7 +736,7 @@ d. DSW-B2: 10.5.0.3
 
     
 
-#### Part 4 - Rapid Spanning Tree Protocol
+#### PART 4 - Rapid Spanning Tree Protocol
 1. Configure Rapid PVST+ on all Access and Distribution switches.
 a. Ensure that the Root Bridge for each VLAN aligns with the HSRP Active router by configuring the lowest possible STP priority.
 b. Configure the HSRP Standby Router for each VLAN with an STP priority one increment above the lowest priority.
@@ -779,7 +779,7 @@ b. Configure the HSRP Standby Router for each VLAN with an STP priority one incr
    ```
   
 
-#### Part 5 - Static and Dynamic Routing
+#### PART 5 - Static and Dynamic Routing
 
 
 
