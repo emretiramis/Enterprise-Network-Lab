@@ -737,6 +737,50 @@ d. DSW-B2: 10.5.0.3
     
 
 #### Part 4 - Rapid Spanning Tree Protocol
+1. Configure Rapid PVST+ on all Access and Distribution switches.
+a. Ensure that the Root Bridge for each VLAN aligns with the HSRP Active router by configuring the lowest possible STP priority.
+b. Configure the HSRP Standby Router for each VLAN with an STP priority one increment above the lowest priority.
+
+    DSW-A1
+    <img width="635" height="146" alt="image" src="https://github.com/user-attachments/assets/a995858a-3f00-40fa-a757-2394ff05a3c0" />
+
+    do the same process with all other switches.
+
+    DSW-A1:
+   <img width="993" height="639" alt="image" src="https://github.com/user-attachments/assets/4bb73126-b0ec-46a6-bbe8-6857dcc8de1f" />
+   <img width="739" height="166" alt="image" src="https://github.com/user-attachments/assets/f7d6d3ba-534b-4e6a-bcf6-a1ce2b4227c7" />
+
+    DSW-A2:
+   <img width="730" height="268" alt="image" src="https://github.com/user-attachments/assets/fa1a840e-2be6-4f90-800c-dcb0cc43b7fe" />
+
+   DSW-B1:
+   <img width="747" height="242" alt="image" src="https://github.com/user-attachments/assets/d776ab8f-f2e8-4c9a-84b4-4c816a5f81da" />
+
+   DSW-B2:
+   <img width="722" height="249" alt="image" src="https://github.com/user-attachments/assets/2e6e8eb1-b966-4dbd-8680-3cd06dc6acbf" />
+
+
+
+
+
+2. Enable PortFast and BPDU Guard on all ports connected to end hosts (including WLC1). Perform the configurations in interface config mode.
+
+    ASW-A1:
+    The ASW-A1's f0/2 interface is connected to WLC1, which is a trunk port. By default, portfast does not work on interfaces in trunk mode. We can see this from the information provided. Here, we add an extra command.
+    <img width="1018" height="1020" alt="image" src="https://github.com/user-attachments/assets/9b43b910-0b05-4e86-a3f9-b18a3bcb7c2f" />
+
+    other access switches similar configuration:
+
+   ASW-A2, ASW-A3, ASW-B1, ASW-B2, ASW-B3:
+    int f0/1
+    spanning-tree portfast
+    spanning-tree bpduguard enable
+
+  
+
+
+
+
 
 
 
