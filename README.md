@@ -741,6 +741,8 @@ d. DSW-B2: 10.5.0.3
 a. Ensure that the Root Bridge for each VLAN aligns with the HSRP Active router by configuring the lowest possible STP priority.
 b. Configure the HSRP Standby Router for each VLAN with an STP priority one increment above the lowest priority.
 
+    This task aims to teach you the principles of Symmetric Network Design, which ensures traffic flows via the shortest and most accurate path while preventing loops in your network. By using Rapid PVST+ instead of the slowness of traditional STP, we enable network convergence within seconds after interruptions; and by setting the STP priority of the device you designated as HSRP Active (main router) in the previous task to the lowest possible value (0), we also declare it as the Root Bridge of the network, preventing unnecessary suboptimal routing. Furthermore, by setting the priority of the HSRP Standby device one full step up (4096) as per the structural rule of STP, we guarantee that both the routing task and the Root Bridge role are seamlessly transferred to the standby device in the event of a main device failure.
+
     DSW-A1: <br>
     <img width="635" height="146" alt="image" src="https://github.com/user-attachments/assets/a995858a-3f00-40fa-a757-2394ff05a3c0" />
 
@@ -765,6 +767,9 @@ b. Configure the HSRP Standby Router for each VLAN with an STP priority one incr
 
 2. Enable PortFast and BPDU Guard on all ports connected to end hosts (including WLC1). Perform the configurations in interface config mode.
 
+    This task aims to maximize the network connection speed of end-user devices (PCs, IP phones, WLCs) while preventing configuration risks from endpoints at the hardware level. By activating PortFast on ports going to end-users, we bypass the 30-second waiting time (listening/learning) that STP normally spends searching for loops, allowing devices to instantly obtain IP addresses and connect to the network; however, to prevent the risks posed by this open door, we activate the BPDU Guard shield on the same ports. Thus, if an employee in the office connects an unauthorized switch to a wall socket and this device sends an STP message (BPDU) to the network, your main switch will immediately detect this situation and lock (err-disable) the port for security purposes, preventing the network from collapsing due to a broadcast storm.
+
+   
     ASW-A1:
     The ASW-A1's f0/2 interface is connected to WLC1, which is a trunk port. By default, portfast does not work on interfaces in trunk mode. We can see this from the information provided. Here, we add an extra command. <br>
     <img width="1018" height="1020" alt="image" src="https://github.com/user-attachments/assets/9b43b910-0b05-4e86-a3f9-b18a3bcb7c2f" />
@@ -780,6 +785,53 @@ b. Configure the HSRP Standby Router for each VLAN with an STP priority one incr
   
 
 #### PART 5 - Static and Dynamic Routing
+
+1. Configure OSPF on R1 (LAN-facing interfaces) and all Core and Distribution switches (all Layer-3 interfaces).
+a. Use process ID 1 and Area 0.
+b. Manually configure each device’s RID to match the loopback interface IP.
+c. On switches, use the network command to match the exact IP address of each interface.
+d. On R1, enable OSPF in interface config mode.
+e. Make sure OSPF is enabled on all loopback interfaces, too. Loopback interfaces should be passive.
+f. Each Distribution switch’s SVIs (except the Management VLAN SVI) should be passive, too.
+g. Configure all physical connections between OSPF neighbors to use a network type that doesn’t elect a DR/BDR. NOTE: This doesn’t work on the Layer-3 PortChannel interfaces between CSW1/CSW2. Leave them as the default network type.
+
+    R1:
+   <img width="812" height="409" alt="image" src="https://github.com/user-attachments/assets/414894c5-20bc-4c6a-9d85-0613ed70987d" />
+
+   CSW1:
+   <img width="1761" height="875" alt="image" src="https://github.com/user-attachments/assets/e528da5a-e69e-4514-9451-2be6c5dbded2" />
+
+   CSW2:
+   <img width="1115" height="482" alt="image" src="https://github.com/user-attachments/assets/28bd05ad-e414-4a6f-90dd-4548cbd57c98" />
+
+   DSW-A1:
+   <img width="1100" height="541" alt="image" src="https://github.com/user-attachments/assets/7fd421fa-c594-449e-b3dd-16eb5733ddeb" />
+
+   DSW-A2:
+   <img width="1111" height="572" alt="image" src="https://github.com/user-attachments/assets/251310f1-9b07-4c4b-b880-001962d6c9e7" />
+
+   DSW-B1:
+   <img width="1094" height="565" alt="image" src="https://github.com/user-attachments/assets/c1a78438-277e-44b1-a911-e48a443a8217" />
+
+   DSW-B2:
+   <img width="1100" height="663" alt="image" src="https://github.com/user-attachments/assets/6ffb1b7b-7567-49f0-92bc-8d74dcaec063" />
+
+
+2. Configure one static default route for each of R1’s Internet connections. They should be recursive routes.
+a. Make the route via G0/1/0 a floating static route by configuring an AD value 1 greater than the default.
+b. R1 should function as an OSPF ASBR, advertising its default route to other routers in the OSPF domain.
+
+  2a:
+  <img width="1054" height="662" alt="image" src="https://github.com/user-attachments/assets/09caf8fa-2133-41d7-9c53-03a4c2974ecd" />
+
+  2b:
+  <img width="668" height="150" alt="image" src="https://github.com/user-attachments/assets/7fb0565a-ae08-44bf-abf5-e0b7bc9b3599" />
+
+  now we can verify on any switch.
+  
+  verify on DSW-B2:
+  <img width="952" height="200" alt="image" src="https://github.com/user-attachments/assets/74cc469b-384f-4dc6-af0d-53be330f7284" />
+
 
 
 
