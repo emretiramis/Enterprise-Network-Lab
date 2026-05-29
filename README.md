@@ -544,52 +544,139 @@ c. Subnet Mask: 255.255.255.0
 
     <img width="1258" height="483" alt="image" src="https://github.com/user-attachments/assets/72ead372-9a0d-434f-9326-d47644d41b9d" />
 
-16. Configure the following management IP addresses on the Access switches (interface VLAN 99), and configure the appropriate subnet’s first usable address as the default gateway.
+11. Configure the following management IP addresses on the Access switches (interface VLAN 99), and configure the appropriate subnet’s first usable address as the default gateway.
 a. ASW-A1: 10.0.0.4/28
 b. ASW-A2: 10.0.0.5/28
 c. ASW-A3: 10.0.0.6/28
 d. ASW-B1: 10.0.0.20/28
 e. ASW-B2: 10.0.0.21/28
 f. ASW-B3: 10.0.0.22/28
-17. Configure HSRPv2 group 1 for Office A’s Management subnet (VLAN 99). Make DSW-A1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A1.
+    This task aims to teach the SVI (Switch Virtual Interface) concept, which is necessary for managing a network without going to the server room by remotely accessing Layer 2 access switches. Instead of physical ports that normally cannot obtain IP addresses, we assign a virtual management IP address to the device via interface VLAN 99, giving it an identity on the network; at this stage, we are expected to analyze the /28 subnet mask and calculate that Office A switches are on the 10.0.0.0 network and Office B switches are on the 10.0.0.16 network. Finally, in order for these switches, which only recognize their own local network, to respond to remote management requests from different IP blocks (e.g., from an administrator connecting from home via VPN), I aimed to define the first available IP addresses of these calculated subnets (10.0.0.1 and 10.0.0.17) as the Default Gateway to the device, thus charting an exit route for these devices that cannot perform routing.
+
+    ASW-A1 default gateway and ip address:
+    <img width="1013" height="289" alt="image" src="https://github.com/user-attachments/assets/ed0ee51f-6787-4ac5-bbd1-76b3eb369a85" />
+
+    ASW-A2:
+    <img width="1000" height="413" alt="image" src="https://github.com/user-attachments/assets/ccf692b5-5819-411a-8b06-26271d1a94c9" />
+
+    ASW-A3:
+    <img width="954" height="500" alt="image" src="https://github.com/user-attachments/assets/9a2f3fc6-6d41-48a5-a4c6-d78edc64a19b" />
+
+    ASW-B1:
+    <img width="970" height="440" alt="image" src="https://github.com/user-attachments/assets/59bbfb11-058a-4f8c-baa4-fac0bb88ba12" />
+
+    ASW-B2:
+    <img width="973" height="413" alt="image" src="https://github.com/user-attachments/assets/249fa3cb-6f93-4901-ba40-6e0d82af2b4d" />
+
+    ASW-B3:
+    <img width="1007" height="404" alt="image" src="https://github.com/user-attachments/assets/e371e388-10da-4ff0-ad1f-0eb033d57859" />
+
+
+
+
+
+
+
+
+12. Configure HSRPv2 group 1 for Office A’s Management subnet (VLAN 99). Make DSW-A1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A1.
 a. Subnet: 10.0.0.0/28
 b. VIP: 10.0.0.1
 c. DSW-A1: 10.0.0.2
 d. DSW-A2: 10.0.0.3
-18. Configure HSRPv2 group 2 for Office A’s PCs subnet (VLAN 10). Make DSW-A1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A1.
+
+    This task aims to eliminate "Single Point of Failure" in your network by utilizing HSRPv2 (Hot Standby Router Protocol) technology, which provides High Availability and redundancy. By assigning a Virtual IP address (VIP - 10.0.0.1) jointly provided by DSW-A1 and DSW-A2 as the default gateway for subnet devices (access switches), instead of a physical device's IP address, we ensure uninterrupted network traffic even if one device fails. While the device with the higher IP address handles routing by default, in this task you manually set the priority of DSW-A1 to 5 above the default value to activate it. You will also learn how to activate the Preemption feature, ensuring that even if the DSW-A1 device experiences a temporary malfunction and restarts, it immediately reclaims the "Active" role from the backup device (Standby) upon returning to the network, guaranteeing that traffic always flows through the main route you designed.
+
+    DSW-A1:
+    <img width="1026" height="720" alt="image" src="https://github.com/user-attachments/assets/550ccaba-6e21-4186-a442-8478c592abbd" />
+
+    DSW-A2:
+    <img width="1017" height="435" alt="image" src="https://github.com/user-attachments/assets/bec68d78-54bb-4db9-b0d5-7ea377b875cb" />
+
+
+
+13. Configure HSRPv2 group 2 for Office A’s PCs subnet (VLAN 10). Make DSW-A1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A1.
 a. Subnet: 10.1.0.0/24
 b. VIP: 10.1.0.1
 c. DSW-A1: 10.1.0.2
 d. DSW-A2: 10.1.0.3
-19. Configure HSRPv2 group 3 for Office A’s Phones subnet (VLAN 20). Make DSW-A2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A2.
+    Similar task with task 12.
+
+    DSW-A1:
+    <img width="1017" height="531" alt="image" src="https://github.com/user-attachments/assets/63ccce74-e5af-4e62-b779-37fd9d9405dd" />
+
+    DSW-A2:
+    <img width="965" height="346" alt="image" src="https://github.com/user-attachments/assets/dce5eed3-ad36-4310-b18f-f37367c8e346" />
+
+14. Configure HSRPv2 group 3 for Office A’s Phones subnet (VLAN 20). Make DSW-A2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A2.
 a. Subnet: 10.2.0.0/24
 b. VIP: 10.2.0.1
 c. DSW-A1: 10.2.0.2
 d. DSW-A2: 10.2.0.3
-20. Configure HSRPv2 group 4 for Office A’s Wi-Fi subnet (VLAN 40). Make DSW-A2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A2.
+
+    DSW-A1:
+    <img width="1005" height="337" alt="image" src="https://github.com/user-attachments/assets/b232e541-e64c-4c35-9f8a-521d1e1f28e0" />
+
+    DSW-A2:
+    <img width="989" height="406" alt="image" src="https://github.com/user-attachments/assets/1a514547-090c-4b7d-b432-aa48c6d8c331" />
+
+    
+15. Configure HSRPv2 group 4 for Office A’s Wi-Fi subnet (VLAN 40). Make DSW-A2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-A2.
 a. Subnet: 10.6.0.0/24
 b. VIP: 10.6.0.1
 c. DSW-A1: 10.6.0.2
 d. DSW-A2: 10.6.0.3
-21. Configure HSRPv2 group 1 for Office B’s Management subnet (VLAN 99). Make DSW-B1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B1.
+
+    DSW-A1:
+    <img width="1007" height="335" alt="image" src="https://github.com/user-attachments/assets/24f149b1-052e-4c36-a5dc-f61349eead8b" />
+
+    DSW-A2:
+    <img width="1009" height="405" alt="image" src="https://github.com/user-attachments/assets/5c213f1d-948b-4a5e-a3ff-985c0a133196" />
+
+
+    
+17. Configure HSRPv2 group 1 for Office B’s Management subnet (VLAN 99). Make DSW-B1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B1.
 a. Subnet: 10.0.0.16/28
 b. VIP: 10.0.0.17
 c. DSW-B1: 10.0.0.18
 d. DSW-B2: 10.0.0.19
-22. Configure HSRPv2 group 2 for Office B’s PCs subnet (VLAN 10). Make DSW-B1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B1.
+
+    DSW-B1:
+
+    DSW-B2:
+
+    
+18. Configure HSRPv2 group 2 for Office B’s PCs subnet (VLAN 10). Make DSW-B1 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B1.
 a. Subnet: 10.3.0.0/24
 b. VIP: 10.3.0.1
 c. DSW-B1: 10.3.0.2
 d. DSW-B2: 10.3.0.3
-23. Configure HSRPv2 group 3 for Office B’s Phones subnet (VLAN 20). Make DSW-B2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B2.
+
+    DSW-B1:
+
+    DSW-B2:
+
+    
+19. Configure HSRPv2 group 3 for Office B’s Phones subnet (VLAN 20). Make DSW-B2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B2.
 a. Subnet: 10.4.0.0/24
 b. VIP: 10.4.0.1
 c. DSW-B1: 10.4.0.2
 d. DSW-B2: 10.4.0.3
-24. Configure HSRPv2 group 4 for Office B’s Servers subnet (VLAN 30). Make DSW-B2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B2.
+
+    DSW-B1:
+
+    DSW-B2:
+
+    
+20. Configure HSRPv2 group 4 for Office B’s Servers subnet (VLAN 30). Make DSW-B2 the Active router by increasing its priority to 5 above the default, and enable preemption on DSW-B2.
 a. Subnet: 10.5.0.0/24
 b. VIP: 10.5.0.1
 c. DSW-B1: 10.5.0.2
 d. DSW-B2: 10.5.0.3
+
+    DSW-B1:
+
+    DSW-B2:
+
+    
 
 
