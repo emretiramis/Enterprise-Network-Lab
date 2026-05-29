@@ -795,6 +795,8 @@ e. Make sure OSPF is enabled on all loopback interfaces, too. Loopback interface
 f. Each Distribution switch’s SVIs (except the Management VLAN SVI) should be passive, too.
 g. Configure all physical connections between OSPF neighbors to use a network type that doesn’t elect a DR/BDR. NOTE: This doesn’t work on the Layer-3 PortChannel interfaces between CSW1/CSW2. Leave them as the default network type.
 
+    This task teaches how to establish automatic network sharing between core switches, distribution switches, and edge routers (R1) over OSPF (Area 0), the standard dynamic routing protocol in enterprise networks, using best practice standards. We practice manually fixing Router ID (RID) values ​​using never-closing virtual interfaces (loopbacks) to improve network stability, employing both traditional network command-based exact matching and modern in-interface configuration methods. We also learn how to make VLANs and loopbacks containing end users passive interfaces, reducing unnecessary CPU load and the risk of route injection by cyber attackers; how to eliminate time-consuming DR/BDR selections by switching physical lines between neighboring devices to point-to-point network types; and how to ensure lightning-fast network convergence in the event of any disruption.
+
     R1:
    <img width="812" height="409" alt="image" src="https://github.com/user-attachments/assets/414894c5-20bc-4c6a-9d85-0613ed70987d" />
 
@@ -821,6 +823,8 @@ g. Configure all physical connections between OSPF neighbors to use a network ty
 a. Make the route via G0/1/0 a floating static route by configuring an AD value 1 greater than the default.
 b. R1 should function as an OSPF ASBR, advertising its default route to other routers in the OSPF domain.
 
+    This task aims to teach the concepts of Static Default Route and dynamic routing integration, which enable the company to access the internet securely, redundantly, and automatically. We will learn to write "recursive" routes on R1 targeting the telecommunications provider's IP (Next-Hop) so that devices on the internal network can find the outside world, and to create a Floating Static Route by increasing the reliability value of the backup line (Administrative Distance) above the default to 1 to create an automatic redundancy (failover) scenario in case of a main internet line failure. Finally, we will position R1 as an ASBR (Autonomous System Border Router) and reinforce the centralized management logic by automatically announcing (injecting) this internet exit route to all switches on the internal network with a single command via OSPF, eliminating the need to write static routes for each device individually.
+
   2a:
   <img width="1054" height="662" alt="image" src="https://github.com/user-attachments/assets/09caf8fa-2133-41d7-9c53-03a4c2974ecd" />
 
@@ -836,6 +840,237 @@ b. R1 should function as an OSPF ASBR, advertising its default route to other ro
 
 #### PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT
 
+1. Configure the following DHCP pools on R1 to make it serve as the DHCP server for hosts in Offices A and B. Exclude the first ten usable host addresses of each pool; they must not be leased to DHCP clients.
+a. Pool: A-Mgmt
+i. Subnet: 10.0.0.0/28
+ii. Default gateway: 10.0.0.1
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+v. WLC: 10.0.0.7
+b. Pool: A-PC
+i. Subnet: 10.1.0.0/24
+ii. Default gateway: 10.1.0.1
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+c. Pool: A-Phone
+i. Subnet: 10.2.0.0/24
+ii. Default gateway: 10.2.0.1
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+d. Pool: B-Mgmt
+i. Subnet: 10.0.0.16/28
+ii. Default gateway: 10.0.0.17
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+v. WLC: 10.0.0.7
+e. Pool: B-PC
+i. Subnet: 10.3.0.0/24
+ii. Default gateway: 10.3.0.1
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+f. Pool: B-Phone
+i. Subnet: 10.4.0.0/24
+ii. Default gateway: 10.4.0.1
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+g. Pool: Wi-Fi
+i. Subnet: 10.6.0.0/24
+ii. Default gateway: 10.6.0.1
+iii. Domain name: jeremysitlab.com
+iv. DNS server: 10.5.0.4 (SRV1)
+
+R1:
+<img width="884" height="383" alt="image" src="https://github.com/user-attachments/assets/731607c5-0888-41ed-bdf2-8da98a6ec721" />
+<img width="698" height="863" alt="image" src="https://github.com/user-attachments/assets/b4472600-2d01-401a-a27f-ccd9007230c6" />
+
+
+2. Configure the Distribution switches to relay wired DHCP clients’ broadcast messages to R1’s Loopback0 IP address.
+   
+   DSW-A1, DSW-A2:
+   ```
+    int vlan 10
+    ip helper-address 10.0.0.76
+    int vlan 20
+    ip helper-address 10.0.0.76
+    int vlan 40
+    ip helper-address 10.0.0.76
+    int vlan 99
+    ip helper-address 10.0.0.76
+   ```
+
+   DSW-B1, DSW-B2:
+   ```
+    int vlan 10
+    ip helper-address 10.0.0.76
+    int vlan 20
+    ip helper-address 10.0.0.76
+    int vlan 30
+    ip helper-address 10.0.0.76
+    int vlan 99
+    ip helper-address 10.0.0.76
+   ```
+
+   verify on PC1:
+   <img width="791" height="547" alt="image" src="https://github.com/user-attachments/assets/6fafd1a3-0158-41b2-bc85-f2c5cd8ab2c8" />
+   <img width="888" height="370" alt="image" src="https://github.com/user-attachments/assets/d1340f85-94ec-4164-b6ec-9eae371e3b31" />
+
+   
 
 
 
+3. Configure the following DNS entries on SRV1:
+a. google.com = 172.253.62.100
+b. youtube.com = 152.250.31.93
+c. jeremysitlab.com = 66.235.200.145
+d. www.jeremysitlab.com = jeremysitlab.com
+
+    SVR1:
+   <img width="1144" height="975" alt="image" src="https://github.com/user-attachments/assets/65e445f6-1bd6-4bc1-b497-fa6cbdb82710" />
+
+   verify on PC1:
+   Even though we can't access it yet because NAT isn't configured, we can see that DNS is resolving the IP address.
+   <img width="763" height="366" alt="image" src="https://github.com/user-attachments/assets/72eb54fd-4378-4015-9535-7649d92edae2" />
+
+4. Configure all routers and switches to use domain name jeremysitlab.com and use SRV1 as their DNS server.
+
+   All Devices:
+   ```
+    ip domain name jeremysitlab.com
+    ip name-server 10.5.0.4
+   ```
+   
+5. Configure NTP on R1:
+a. Make R1 a stratum 5 NTP server.
+b. R1 should learn the time from NTP server 216.239.35.0.
+c. NOTE: NTP takes a LONG time to sync, especially in Packet Tracer. After making the configurations, you can move on – don’t wait for the devices to sync.
+
+R1:
+<img width="785" height="103" alt="image" src="https://github.com/user-attachments/assets/87e0891a-1f5c-4fda-940b-c82e0acce393" />
+
+
+6. All Core, Distribution, and Access switches should use R1’s loopback interface as their NTP server.
+a. Clients should authenticate R1 using key number 1 and the password ccna.
+    R1:
+      <img width="862" height="203" alt="image" src="https://github.com/user-attachments/assets/f00f96af-df20-495c-9e6c-a47edd18d709" />
+
+    all switches:
+   ```
+      ntp authentication-key 1 md5 ccna
+      ntp trusted-key 1 
+      ntp server 10.0.0.76 key 1
+   ```
+
+7. Configure the SNMP community string SNMPSTRING on all routers and switches. The string should allow GET messages, but not SET messages.
+   all devices:
+   ```
+    snmp-server community SNMPSTRING ro
+   ```
+8. Configure Syslog on all routers and switches:
+a. Send Syslog messages to SRV1. Messages of all severity levels should be logged.
+b. Enable logging to the buffer. Reserve 8192 bytes of memory for the buffer.
+
+  all devices:
+  ```
+    logging 10.5.0.4
+    logging trap debugging
+    logging buffered 8192
+  ```
+
+9. Use FTP on R1 to download a new IOS version from SRV1:
+a. Configure R1’s default FTP credentials: username cisco, password cisco.
+b. Use FTP to copy the file c2900-universalk9-mz.SPA.155-3.M4a.bin from SRV1 to R1’s flash drive.
+c. Reboot R1 using the new IOS file, and then delete the old one from flash.
+
+    R1:
+   <img width="1046" height="711" alt="image" src="https://github.com/user-attachments/assets/79f3a640-42f9-45e5-b768-b53585f6aa35" />
+
+    Deleting old flash:
+   <img width="962" height="680" alt="image" src="https://github.com/user-attachments/assets/10ce6938-958e-4e4a-a5fa-4e2f7b1f221d" />
+
+
+10. Configure SSH for secure remote access on all routers and switches.
+a. Use the largest modulus size for the RSA keys.
+b. Allow SSHv2 connections only.
+c. Create standard ACL 1, only allowing packets sourced from Office A’s PCs subnet. Apply the ACL to all VTY lines to restrict SSH access.
+d. Allow only SSH connections to the VTY lines.
+e. Require users to log in with a local user account when connecting via SSH.
+f. Configure synchronous logging on the VTY lines.
+
+    All devices:
+    ```
+      crypto key generate rsa
+      4096
+      ip ssh version 2
+      access-list 1 permit 10.1.0.0 0.0.0.255
+      line vty 0 15
+      access-class 1 in
+      transport input ssh
+      login local
+      logging synchronous
+    ```
+
+    Verify on PC1:
+    <img width="543" height="194" alt="image" src="https://github.com/user-attachments/assets/fe1f35ce-c5af-4516-bcfb-bc3109ad3f1a" />
+
+    Verify on PC3:
+    <img width="727" height="292" alt="image" src="https://github.com/user-attachments/assets/e9dfd633-d048-477f-8879-637dca9539bb" />
+
+
+12. Configure static NAT on R1 to enable hosts on the Internet to access SRV1 via the IP address 203.0.113.113.
+
+    R1:
+    <img width="967" height="314" alt="image" src="https://github.com/user-attachments/assets/4d3f7e7f-9cf9-4166-b6f9-d094381c967d" />
+
+    verify:
+    before ping, do dns server address "10.5.0.4" from config tab. 
+    <img width="1002" height="568" alt="image" src="https://github.com/user-attachments/assets/d593cabb-fcd0-4bec-b3db-ee460793fce3" />
+
+
+13. Configure pool-based dynamic PAT on R1 to enable hosts in the Office A PCs, Office A Phones, Office B PCs, Office B Phones, and Wi-Fi subnets to access the Internet.
+a. Use standard ACL 2 to define the appropriate inside local address ranges in the following order:
+i. Office A PCs: 10.1.0.0/24
+ii. Office A Phones: 10.2.0.0/24
+iii. Office B PCs: 10.3.0.0/24
+iv. Office B Phones: 10.4.0.0/24
+v. Wi-Fi: 10.6.0.0/24
+b. Define a range of inside global addresses called POOL1, specifying the range 203.0.113.200 to 203.0.113.207 with a /29 netmask.
+c. Map ACL 2 to POOL1 and enable PAT. Confirm that hosts can access the Internet by pinging jeremysitlab.com.
+d. Verify that Internet link failover works by disabling R1’s G0/0/0 interface and pinging again.
+i. You will need to remove and re-configure the OSPF default-information originate command for this to work. In real Cisco routers, you can configure the default-information originate always command that supports failover like this, but the command isn’t available in Packet Tracer.
+ii. Re-enable G0/0/0 (and remove and re-configure default-information originate once again).
+
+12a:
+<img width="840" height="176" alt="image" src="https://github.com/user-attachments/assets/27910f12-3e90-4ea9-b279-87ea8d8ab27f" />
+
+12b:
+<img width="1021" height="83" alt="image" src="https://github.com/user-attachments/assets/98c57649-969e-4fad-b7a9-22f1b4232b6f" />
+
+12c:
+<img width="887" height="73" alt="image" src="https://github.com/user-attachments/assets/b90445e4-dfc1-4381-93c5-feb1c8a2546c" />
+
+verify on PC1:
+<img width="838" height="374" alt="image" src="https://github.com/user-attachments/assets/d5b305e6-ef44-437c-80bf-50a80cac6bf2" />
+
+12d:
+<img width="1071" height="417" alt="image" src="https://github.com/user-attachments/assets/ce79a6b5-d6f7-4265-9177-e11bb501a563" />
+
+
+
+
+13. Disable CDP on all devices and enable LLDP instead. 
+a. Disable LLDP Tx on each Access switch’s access port (F0/1).
+
+R1, CORE and DISTRIBUTION layer switches:
+```
+  no cdp run
+  lldp run
+```
+
+Access layer switches:
+```
+  no cdp run
+  lldp run
+  int f0/1
+  no lldp transmit
+```
+  
