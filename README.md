@@ -30,7 +30,7 @@ and more...
   - [PART 3 - IP Adresses, Layer 3 EtherChannel, HSRP](#PART-3---IP-Adresses-Layer-3-EtherChannel-HSRP)
   - [PART 4 - Rapid Spanning Tree Protocol](#Part-4---Rapid-Spanning-Tree-Protocol)
   - [PART 5 - Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
-  - [PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT](#part-6--network-services-dhcp-dns-ntp-snmp-syslog-ftp-ssh-nat)
+  - [PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT](#part-6---network-services-dhcp-dns-ntp-snmp-syslog-ftp-ssh-nat)
   - [DHCP Configuration](#dhcp-configuration)
   - [DNS Configuration](#dns-configuration)
   - [NAT Configuration](#nat-configuration)
