@@ -1,4 +1,4 @@
-# Enterprise Network Lab
+# Enterprise Infrastructure
 This project is a large-scale lab designed to simulate a real enterprise network environment.
 
 The lab includes:
