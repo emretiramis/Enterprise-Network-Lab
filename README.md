@@ -32,7 +32,7 @@ and more...
   - [PART 5 - Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
   - [PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT](#part-6---network-services-dhcp-dns-ntp-snmp-syslog-ftp-ssh-nat)
   - [PART 7 - Security: ACLs and Layer-2 Security Features](#part-7---security-acls-and-layer-2-security-features)
-  - [DNS Configuration](#dns-configuration)
+  - [PART 8 - IPv6](#part-8--ipv6)
   - [NAT Configuration](#nat-configuration)
   - [SSH Configuration](#ssh-configuration)
   - [Wireless Configuration](#wireless-configuration)
@@ -1171,3 +1171,14 @@ int range g0/1-2
 ip arp inspection trust
 
 
+
+#### PART 8 - IPv6
+1. To prepare for a migration to IPv6, enable IPv6 routing and configure IPv6 addresses on R1, CSW1, and CSW2:
+a. R1 G0/0/0: 2001:db8:a::2/64
+b. R1 G0/1/0: 2001:db8:b::2/64
+c. R1 G0/0 and CSW1 G1/0/1: Use prefix 2001:db8:a1::/64 and EUI-64 to generate an interface ID for each interface.
+d. R1 G0/1 and CSW2 G1/0/1: Use prefix 2001:db8:a2::/64 and EUI-64 to generate an interface ID for each interface.
+e. CSW1 Po1 and CSW2 Po1: Enable IPv6 without using the ‘ipv6 address’ command.
+2. Configure two default static routes on R1:
+a. A recursive route via next hop 2001:db8:a::1.
+b. A fully-specified route via next hop 2001:db8:b::1. Make it a floating route by configuring the AD 1 higher than default.
