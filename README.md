@@ -1203,3 +1203,52 @@ R1:
 
 #### PART 9 - Wireless
 
+1. Access the GUI of WLC1 (https://10.0.0.7) from one of the PCs.
+a. Username: admin
+b. Password: adminPW12
+2. Configure a dynamic interface for the Wi-Fi WLAN (10.6.0.0/24)
+a. Name: Wi-Fi
+b. VLAN: 40
+c. Port number: 1
+d. IP address: .4 of its subnet
+Note: The Mega Lab video shows 10.6.0.2. This is a mistake, as it's a duplicate address of DSW-A1's VLAN 40 address.
+e. Gateway: .1 of its subnet
+f. DHCP server: 10.0.0.76
+3. Configure and enable the following WLAN:
+a. Profile name: Wi-Fi
+b. SSID: Wi-Fi
+c. ID: 1
+d. Status: Enabled
+e. Security: WPA2 Policy with AES encryption, PSK of cisco123
+4. Verify that both LWAPs have associated with WLC1.
+a. Due to Packet Tracer’s limitations, wireless clients won’t be able to lease an IP address from the Wi-Fi DHCP pool.
+
+PC1
+<img width="1497" height="907" alt="image" src="https://github.com/user-attachments/assets/c0bd19d5-943d-4a44-92c2-f21603082d2d" />
+<img width="2558" height="1437" alt="image" src="https://github.com/user-attachments/assets/79ace558-c39e-493a-a11f-8c5a47a36292" />
+<img width="1814" height="925" alt="image" src="https://github.com/user-attachments/assets/4cb7bf92-5084-472e-9c32-7854a9e7af3c" />
+<img width="1785" height="634" alt="image" src="https://github.com/user-attachments/assets/66131b1f-a247-48ce-b1fb-ed38807b735b" />
+<img width="1223" height="574" alt="image" src="https://github.com/user-attachments/assets/a32ad841-00a3-4d66-9830-df248fa2e0e7" />
+<img width="1806" height="907" alt="image" src="https://github.com/user-attachments/assets/447fa873-19ae-4f05-867a-7620501c01fe" />
+
+<img width="1809" height="912" alt="image" src="https://github.com/user-attachments/assets/474aafff-c45a-4c3b-b0f8-b3da48d5a0e8" />
+<img width="1815" height="985" alt="image" src="https://github.com/user-attachments/assets/d89d874b-36d9-46b9-be81-157d1fb7817e" />
+<img width="1808" height="948" alt="image" src="https://github.com/user-attachments/assets/85dc3df7-9384-4d79-b9c8-3fbe5f4d14a5" />
+<img width="1800" height="962" alt="image" src="https://github.com/user-attachments/assets/3404ddd4-701c-4b3d-8d62-cb8805b69ece" />
+I did psk format as "cisco123"
+<img width="1356" height="628" alt="image" src="https://github.com/user-attachments/assets/2fe67f81-785a-450e-a0f4-ca2c60818b24" />
+click save configuration button
+<img width="1814" height="979" alt="image" src="https://github.com/user-attachments/assets/ce70b9a3-8228-4133-9129-5e3fa824cbae" />
+
+
+
+
+
+
+
+
+
+
+
+
+
