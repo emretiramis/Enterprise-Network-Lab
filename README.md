@@ -52,13 +52,17 @@ The purpose of this project is to understand how a computer network works in ent
 
 The main goals of this project are:
 
-- Design a scalable enterprise network
-- Implement VLAN segmentation
-- Configure inter-VLAN routing
-- Deploy dynamic routing protocol(OSPF)
-- Configure DHCP,DNS and NAT services
-- Apply ACL-based security
-- Implement SSH remote management
+* Design and implement a scalable enterprise network topology.
+* Configure VLANs and EtherChannel to improve network segmentation and link redundancy.
+* Implement Layer 3 connectivity and gateway redundancy using HSRP.
+* Prevent switching loops and optimize network convergence with Rapid Spanning Tree Protocol (RSTP).
+* Configure and verify both static and dynamic routing for efficient communication between networks.
+* Deploy essential network services including DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, and NAT.
+* Enhance network security using ACLs and Layer 2 security features.
+* Implement and test IPv6 addressing and connectivity.
+* Configure and secure wireless network access.
+* Develop troubleshooting and verification skills through testing and validation of network operations.
+
 
 ---
 
@@ -1241,6 +1245,7 @@ I did psk format as "cisco123"
 click save configuration button
 <img width="1814" height="979" alt="image" src="https://github.com/user-attachments/assets/ce70b9a3-8228-4133-9129-5e3fa824cbae" />
 
+---
 
 ## Conclusion
   In this project, I applied many of the concepts I learned during my CCNA studies by building and configuring a complete network environment. I worked with VLANs, STP, EtherChannel, HSRP, routing protocols, network services, security features, IPv6, and wireless networking. This project helped me better understand how different networking technologies work together in a real-world scenario and improved my configuration and troubleshooting skills. 
