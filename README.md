@@ -34,10 +34,6 @@ and more...
   - [PART 7 - Security: ACLs and Layer-2 Security Features](#part-7---security-acls-and-layer-2-security-features)
   - [PART 8 - IPv6](#part-8---ipv6)
   - [NAT Configuration](#nat-configuration)
-  - [SSH Configuration](#ssh-configuration)
-  - [Wireless Configuration](#wireless-configuration)
-  - [Security Features](#security-features)
-  - [IPv6 Configuration](#ipv6-configuration)
 - [Verification and Testing](#verification-and-testing)
 - [Conclusion](#conclusion)
 
