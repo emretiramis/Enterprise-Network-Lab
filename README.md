@@ -73,6 +73,8 @@ The network topology for this lab is a three-tier LAN consisting of two offices,
 ## Connection and IPv4 Addresses
 
 <img width="1597" height="933" alt="image" src="https://github.com/user-attachments/assets/4b3bdc34-6dd8-4851-8e16-1d27cdedb937" />
+<img width="1350" height="1095" alt="image" src="https://github.com/user-attachments/assets/1ea83cca-ec79-4fb6-80ce-eb60e6d8df77" />
+
 
 ---
 
