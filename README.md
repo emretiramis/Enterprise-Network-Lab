@@ -32,7 +32,7 @@ and more...
   - [PART 5 - Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
   - [PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT](#part-6---network-services-dhcp-dns-ntp-snmp-syslog-ftp-ssh-nat)
   - [PART 7 - Security: ACLs and Layer-2 Security Features](#part-7---security-acls-and-layer-2-security-features)
-  - [PART 8 - IPv6](#part-8--ipv6)
+  - [PART 8 - IPv6](#part-8---ipv6)
   - [NAT Configuration](#nat-configuration)
   - [SSH Configuration](#ssh-configuration)
   - [Wireless Configuration](#wireless-configuration)
@@ -1173,6 +1173,7 @@ ip arp inspection trust
 
 
 #### PART 8 - IPv6
+
 1. To prepare for a migration to IPv6, enable IPv6 routing and configure IPv6 addresses on R1, CSW1, and CSW2:
 a. R1 G0/0/0: 2001:db8:a::2/64
 b. R1 G0/1/0: 2001:db8:b::2/64
