@@ -1082,19 +1082,92 @@ a. Allow ICMP messages from the Office A PCs subnet to the Office B PCs subnet.
 b. Block all other traffic from the Office A PCs subnet to the Office B PCs subnet.
 c. Allow all other traffic.
 d. Apply the ACL according to general best practice for extended ACLs.
+
+    This task teaches you how to create internal security policies by fine-tuning traffic between networks based on IP and protocol (e.g., only allow Ping/ICMP, block other data traffic). It demonstrates how to prevent unwanted traffic from unnecessarily traveling to the network backbone and wasting bandwidth by applying extended ACLs always at the "closest to the source" point, following industry best practice. It also highlights the importance of the "allow all other traffic" command to bypass the implicit "deny all" rule at the end of the lists.
+
+
+    DSW-A1:
+   <img width="1001" height="334" alt="image" src="https://github.com/user-attachments/assets/f2752f70-b5d5-4f51-8fd8-ceca1a6aa476" />
+
+    DSW-A2:
+   <img width="1012" height="225" alt="image" src="https://github.com/user-attachments/assets/c3a8648b-e529-44f8-a5e7-24eec4554de9" />
+
+
+
 2. Configure Port Security on each Access switch's F0/1 port:
 a. Allow the minimum necessary number of MAC addresses on each port.
 i. SRV1 does not use virtualization, so it uses a single MAC address.
 b. Configure a violation mode that blocks invalid traffic without affecting valid traffic. The switches should send notifications when invalid traffic is detected.
 c. Switches should automatically save the secure MAC addresses they learn to the running-config.
+
+    This task aims to protect network endpoints (physical office power outlets) from unauthorized devices and cyberattacks that flood the switching table (MAC flooding). It demonstrates the ease of setting a minimum number of allowed MAC addresses and automatically learning and saving these MAC addresses using the sticky feature. It also showcases the intricacies of Restrict mode, which, instead of completely shutting down a port and penalizing legitimate traffic, simply discards the packets of the unauthorized device and sends a warning (Syslog/SNMP) to the network administrator in case of a breach.
+
+    ASW-A1:
+   <img width="960" height="491" alt="image" src="https://github.com/user-attachments/assets/e75609d7-e2ba-47e8-9f9c-1e48ab6201c8" />
+
+   ASW-B1:
+   <img width="855" height="382" alt="image" src="https://github.com/user-attachments/assets/6bc8e93c-4b6e-45f0-a383-aace79600ee6" />
+
+   ASW-B3:
+   <img width="960" height="376" alt="image" src="https://github.com/user-attachments/assets/326c0eaa-73f6-46f8-903f-8fd7ab30281a" />
+
+
+
+
 3. Configure DHCP Snooping on all Access switches.
 a. Enable it for all active VLANs in each LAN.
 b. Trust the appropriate ports.
 c. Disable insertion of DHCP Option 82.
 d. Set a DHCP rate limit of 15 pps on active untrusted ports.
 e. Set a higher limit (100 pps) on ASW-A1’s connection to WLC1.
+
+    This task teaches you how to prevent a malicious or misconfigured device (such as a fake modem/router) from connecting to the network and diverting traffic to itself (Rogue DHCP Server) by distributing fake IPs and gateways to users. It aims to establish a "Security Boundary" by declaring only the Core/Distribution ports on the switch as "Trusted" and all other end ports as untrusted, to ward off DoS (Starvation) attacks that can overwhelm your DHCP server by setting a packet rate limit on end ports, and to create a smooth defense line by disabling the DHCP Option 82 add-on, which can cause incompatibility issues in lab environments.
+
+ASW-A1:
+<img width="956" height="286" alt="image" src="https://github.com/user-attachments/assets/6ef7140b-243a-4c9f-8beb-824ad02fb729" />
+
+ASW-A2, ASW-A3:
+  ip dhcp snooping
+  ip dhcp snooping vlan 10,20,40,99
+  no ip dhcp snooping information option
+  int range g0/1-2
+  ip dhcp snooping trust
+  int f0/1
+  ip dhcp snooping limit rate 15
+
+
+ASW-B1, ASW-B2, ASW-B3:
+  ip dhcp snooping
+  ip dhcp snooping vlan 10,20,30,99
+  no ip dhcp snooping information option
+  int range g0/1-2
+  ip dhcp snooping trust
+  int f0/1
+  ip dhcp snooping limit rate 15
+
+
+
 4. Configure DAI on all Access switches.
 a. Enable it for all active VLANs in each LAN.
 b. Trust the appropriate ports.
 c. Enable all optional validation checks.
+
+    This task aims to make it impossible for users on the same local network to secretly listen to network traffic (ARP spoofing/man-in-the-middle) by impersonating each other's MAC and IP identities. Using the clean database created by DHCP Snooping in the previous task, DAI teaches us how a switch, instead of blindly forwarding an ARP packet, can open and examine the packet like a customs officer to verify the source MAC and destination IP information within the packet, thus securing Layer 2 communication on the network through non-cryptographic means.
+
+ASW-A1:
+<img width="1019" height="155" alt="image" src="https://github.com/user-attachments/assets/8234c5d0-b3ea-4a44-a448-cf3b716cba35" />
+
+ASW-A2, ASW-A3:
+ip arp inspection vlan 10,20,40,99
+ip arp inspection validate src-mac dst-mac ip
+int range g0/1-2
+ip arp inspection trust
+
+
+ASW-B1, ASW-B2, ASW-B3:
+ip arp inspection vlan 10,20,30,99
+ip arp inspection validate src-mac dst-mac ip
+int range g0/1-2
+ip arp inspection trust
+
 
