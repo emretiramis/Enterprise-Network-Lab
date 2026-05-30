@@ -1176,6 +1176,25 @@ b. R1 G0/1/0: 2001:db8:b::2/64
 c. R1 G0/0 and CSW1 G1/0/1: Use prefix 2001:db8:a1::/64 and EUI-64 to generate an interface ID for each interface.
 d. R1 G0/1 and CSW2 G1/0/1: Use prefix 2001:db8:a2::/64 and EUI-64 to generate an interface ID for each interface.
 e. CSW1 Po1 and CSW2 Po1: Enable IPv6 without using the ‘ipv6 address’ command.
+
+R1:
+<img width="973" height="854" alt="image" src="https://github.com/user-attachments/assets/9b0ce0eb-6753-4441-928c-8272d7b5165f" />
+
+CSW1:
+<img width="813" height="188" alt="image" src="https://github.com/user-attachments/assets/c38f40f8-bc74-48ce-aefa-97c20b7f71a3" />
+<img width="603" height="141" alt="image" src="https://github.com/user-attachments/assets/67148e03-a73a-4db9-81ac-7f7e2a40a264" />
+
+
+CSW2:
+<img width="961" height="252" alt="image" src="https://github.com/user-attachments/assets/f35aa2e0-e067-4b62-8fb8-da40945925a5" />
+<img width="797" height="136" alt="image" src="https://github.com/user-attachments/assets/a27bcd2a-5a19-46fe-8c29-21114678dea6" />
+
+
+
 2. Configure two default static routes on R1:
 a. A recursive route via next hop 2001:db8:a::1.
 b. A fully-specified route via next hop 2001:db8:b::1. Make it a floating route by configuring the AD 1 higher than default.
+
+R1:
+<img width="860" height="116" alt="image" src="https://github.com/user-attachments/assets/b1ec29cd-b2d7-4e58-b671-b106da60d8bf" />
+
