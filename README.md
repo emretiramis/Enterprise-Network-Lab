@@ -31,7 +31,7 @@ and more...
   - [PART 4 - Rapid Spanning Tree Protocol](#Part-4---Rapid-Spanning-Tree-Protocol)
   - [PART 5 - Static and Dynamic Routing](#PART-5---Static-And-Dynamic-Routing)
   - [PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT](#part-6---network-services-dhcp-dns-ntp-snmp-syslog-ftp-ssh-nat)
-  - [DHCP Configuration](#dhcp-configuration)
+  - [PART 7 - Security: ACLs and Layer-2 Security Features](#part-7---security-acls-and-layer-2-security-features)
   - [DNS Configuration](#dns-configuration)
   - [NAT Configuration](#nat-configuration)
   - [SSH Configuration](#ssh-configuration)
@@ -1074,3 +1074,27 @@ Access layer switches:
   no lldp transmit
 ```
   
+
+
+#### PART 7 - Security: ACLs and Layer-2 Security Features
+1. Configure extended ACL OfficeA_to_OfficeB where appropriate:
+a. Allow ICMP messages from the Office A PCs subnet to the Office B PCs subnet.
+b. Block all other traffic from the Office A PCs subnet to the Office B PCs subnet.
+c. Allow all other traffic.
+d. Apply the ACL according to general best practice for extended ACLs.
+2. Configure Port Security on each Access switch's F0/1 port:
+a. Allow the minimum necessary number of MAC addresses on each port.
+i. SRV1 does not use virtualization, so it uses a single MAC address.
+b. Configure a violation mode that blocks invalid traffic without affecting valid traffic. The switches should send notifications when invalid traffic is detected.
+c. Switches should automatically save the secure MAC addresses they learn to the running-config.
+3. Configure DHCP Snooping on all Access switches.
+a. Enable it for all active VLANs in each LAN.
+b. Trust the appropriate ports.
+c. Disable insertion of DHCP Option 82.
+d. Set a DHCP rate limit of 15 pps on active untrusted ports.
+e. Set a higher limit (100 pps) on ASW-A1’s connection to WLC1.
+4. Configure DAI on all Access switches.
+a. Enable it for all active VLANs in each LAN.
+b. Trust the appropriate ports.
+c. Enable all optional validation checks.
+
