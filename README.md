@@ -1241,7 +1241,7 @@ click save configuration button
 
 
 ## Conclusion
-
+  In this project, I applied many of the concepts I learned during my CCNA studies by building and configuring a complete network environment. I worked with VLANs, STP, EtherChannel, HSRP, routing protocols, network services, security features, IPv6, and wireless networking. This project helped me better understand how different networking technologies work together in a real-world scenario and improved my configuration and troubleshooting skills. 
 
 
 
