@@ -40,11 +40,7 @@ and more...
 
 ## Project Overview
 
-This project is a comprehensive CCNA mega lab built using Cisco Packet Tracer to simulate a real enterprise network environment.
-
-The lab focuses on core networking technologies including routing, switching and network security.
-
-The purpose of this project is to understand how a computer network works in enterprise organizations.
+  This project is a comprehensive infrastructure lab built using Cisco Packet Tracer to simulate a real enterprise network environment. The lab focuses on core networking technologies including routing, switching, network services, security features, IPv6 and wireless networking. The purpose of this project is to understand how a computer network works in enterprise organizations.
 
 ---
 
