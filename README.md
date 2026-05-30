@@ -33,7 +33,7 @@ and more...
   - [PART 6 - Network Services: DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT](#part-6---network-services-dhcp-dns-ntp-snmp-syslog-ftp-ssh-nat)
   - [PART 7 - Security: ACLs and Layer-2 Security Features](#part-7---security-acls-and-layer-2-security-features)
   - [PART 8 - IPv6](#part-8---ipv6)
-  - [NAT Configuration](#nat-configuration)
+  - [PART 9 - Wireless](#part-9---wireless)
 - [Verification and Testing](#verification-and-testing)
 - [Conclusion](#conclusion)
 
@@ -1197,4 +1197,9 @@ b. A fully-specified route via next hop 2001:db8:b::1. Make it a floating route 
 
 R1:
 <img width="860" height="116" alt="image" src="https://github.com/user-attachments/assets/b1ec29cd-b2d7-4e58-b671-b106da60d8bf" />
+
+
+
+
+#### PART 9 - Wireless
 
