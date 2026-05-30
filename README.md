@@ -34,7 +34,6 @@ and more...
   - [PART 7 - Security: ACLs and Layer-2 Security Features](#part-7---security-acls-and-layer-2-security-features)
   - [PART 8 - IPv6](#part-8---ipv6)
   - [PART 9 - Wireless](#part-9---wireless)
-- [Verification and Testing](#verification-and-testing)
 - [Conclusion](#conclusion)
 
 ---
@@ -1241,6 +1240,7 @@ click save configuration button
 <img width="1814" height="979" alt="image" src="https://github.com/user-attachments/assets/ce70b9a3-8228-4133-9129-5e3fa824cbae" />
 
 
+## Conclusion
 
 
 
